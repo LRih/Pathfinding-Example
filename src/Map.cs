@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace PathfindingExample
 {
@@ -15,13 +14,12 @@ namespace PathfindingExample
         public Map()
         {
             for (int y = 0; y < GRID_COUNT; y++)
-            {
-                for (int x = 0; x < GRID_COUNT; x++) SetPassable(x, y, true);
-            }
+                for (int x = 0; x < GRID_COUNT; x++)
+                    SetPassable(x, y, true);
+
             for (int y = 8; y <= 11; y++)
-            {
-                for (int x = 9; x <= 10; x++) SetPassable(x, y, false);
-            }
+                for (int x = 9; x <= 10; x++)
+                    SetPassable(x, y, false);
         }
 
         //===================================================================== FUNCTIONS
@@ -29,18 +27,22 @@ namespace PathfindingExample
         {
             _map[x, y] = !_map[x, y];
         }
+
         public void SetPassable(int x, int y, bool isPassable)
         {
             _map[x, y] = isPassable;
         }
+
         public bool IsPassable(Point pt)
         {
             return IsPassable(pt.X, pt.Y);
         }
         public bool IsPassable(int x, int y)
         {
-            if (x < 0 || x >= GRID_COUNT || y < 0 || y >= GRID_COUNT) return false;
-            else return _map[x, y];
+            if (x < 0 || x >= GRID_COUNT || y < 0 || y >= GRID_COUNT)
+                return false;
+
+            return _map[x, y];
         }
     }
 }

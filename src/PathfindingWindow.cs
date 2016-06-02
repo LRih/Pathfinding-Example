@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
@@ -53,6 +51,7 @@ namespace PathfindingExample
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             DrawMap(e.Graphics);
             DrawPath(e.Graphics);
             DrawEndPoints(e.Graphics);
@@ -71,7 +70,10 @@ namespace PathfindingExample
         private void DrawPath(Graphics g)
         {
             PointData currentPt = new Pathfinder(_map, _start, _end).FindPath();
-            if (currentPt == null) return;
+
+            if (currentPt == null)
+                return;
+
             using (GraphicsPath path = new GraphicsPath())
             using (Pen pen = new Pen(Color.SteelBlue, (10 * GRID_SIZE) / 40))
             {
@@ -81,6 +83,7 @@ namespace PathfindingExample
                     currentPt = currentPt.Parent;
                     g.DrawString(currentPt.MovementCost.ToString(), this.Font, Brushes.Black, currentPt.X * GRID_SIZE + GRID_SIZE / 2, currentPt.Y * GRID_SIZE - GRID_SIZE / 2);
                 } while (currentPt.Parent != null);
+
                 g.DrawPath(pen, path);
             }
         }
@@ -93,14 +96,18 @@ namespace PathfindingExample
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseClick(e);
-            if (e.Button == MouseButtons.Left) SetPassable(GetCoord(e.X, e.Y), _currentDraw);
+
+            if (e.Button == MouseButtons.Left)
+                SetPassable(GetCoord(e.X, e.Y), _currentDraw);
         }
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseClick(e);
+
             if (e.Button == MouseButtons.Left)
             {
                 Point coord = GetCoord(e.X, e.Y);
+
                 _currentDraw = !_map.IsPassable(coord);
                 SetPassable(coord, _currentDraw);
             }
